@@ -20,10 +20,10 @@ export const TicketList: React.FC<Props> = ({
 }) => {
   if (tickets.length === 0) {
     return (
-      <div className="bg-surface rounded-card border border-border-light p-12 text-center shadow-card">
-        <Inbox className="w-12 h-12 text-text-muted mx-auto mb-3" />
-        <h4 className="font-semibold text-text-primary text-sm">No tickets found</h4>
-        <p className="text-xs text-text-secondary mt-1">
+      <div className="bg-white rounded-xl border border-slate-200 p-12 text-center">
+        <Inbox className="w-12 h-12 text-slate-300 mx-auto mb-3" />
+        <h4 className="font-semibold text-slate-700">No tickets found</h4>
+        <p className="text-sm text-slate-500 mt-1">
           No tickets match the currently active filters.
         </p>
       </div>
@@ -31,11 +31,11 @@ export const TicketList: React.FC<Props> = ({
   }
 
   return (
-    <div className="bg-surface rounded-card border border-border-light overflow-hidden shadow-card">
+    <div className="bg-white rounded-xl border border-slate-200 overflow-hidden shadow-sm">
       <div className="overflow-x-auto">
         <table className="w-full text-left text-sm border-collapse">
           <thead>
-            <tr className="bg-surface-muted border-b border-border-light text-[11px] font-semibold uppercase tracking-wider text-text-secondary">
+            <tr className="bg-slate-50 border-b border-slate-200 text-xs font-semibold uppercase tracking-wider text-slate-500">
               <th className="py-3 px-4">Ticket</th>
               <th className="py-3 px-4">Subject & Customer</th>
               <th className="py-3 px-4">Priority</th>
@@ -45,10 +45,11 @@ export const TicketList: React.FC<Props> = ({
               <th className="py-3 px-4 text-right">Action</th>
             </tr>
           </thead>
-          <tbody className="divide-y divide-border-subtle">
+          <tbody className="divide-y divide-slate-100">
             {tickets.map((t) => {
               const isSelected = selectedTicketId === t.id;
               const isAssignedToMe = t.assigned_agent_id === currentAgent.id;
+              const isClaimedByOther = t.assigned_agent_id !== null && !isAssignedToMe;
 
               return (
                 <tr
@@ -56,18 +57,18 @@ export const TicketList: React.FC<Props> = ({
                   onClick={() => onSelectTicket(t.id)}
                   className={`cursor-pointer transition-colors ${
                     isSelected
-                      ? 'bg-brand-active'
+                      ? 'bg-blue-50/70'
                       : t.is_late
-                      ? 'bg-status-error/5 hover:bg-status-error/10'
-                      : 'hover:bg-surface-muted'
+                      ? 'bg-rose-50/30 hover:bg-rose-50/60'
+                      : 'hover:bg-slate-50'
                   }`}
                 >
-                  <td className="py-3.5 px-4 font-mono font-semibold text-xs text-text-primary whitespace-nowrap">
+                  <td className="py-3.5 px-4 font-mono font-bold text-xs text-slate-700 whitespace-nowrap">
                     {t.ticket_number}
                   </td>
                   <td className="py-3.5 px-4 max-w-xs md:max-w-md">
-                    <div className="font-semibold text-text-primary truncate">{t.title}</div>
-                    <div className="text-xs text-text-secondary flex items-center gap-1.5 mt-0.5">
+                    <div className="font-semibold text-slate-900 truncate">{t.title}</div>
+                    <div className="text-xs text-slate-500 flex items-center gap-1.5 mt-0.5">
                       <span>{t.customer_name}</span>
                       <span>•</span>
                       <span>{new Date(t.created_at).toLocaleDateString()}</span>
@@ -78,16 +79,16 @@ export const TicketList: React.FC<Props> = ({
                   </td>
                   <td className="py-3.5 px-4 whitespace-nowrap">
                     <span
-                      className={`inline-flex px-2.5 py-0.5 rounded-full text-[10px] font-semibold uppercase tracking-wider ${
+                      className={`inline-flex px-2 py-0.5 rounded-full text-xs font-semibold ${
                         t.status === 'NEW'
-                          ? 'bg-brand/10 text-brand border border-brand/25'
+                          ? 'bg-purple-100 text-purple-700'
                           : t.status === 'IN_PROGRESS'
-                          ? 'bg-status-info/10 text-status-info border border-status-info/25'
+                          ? 'bg-blue-100 text-blue-700'
                           : t.status === 'WAITING_ON_CUSTOMER'
-                          ? 'bg-status-warning/10 text-amber-700 border border-status-warning/30'
+                          ? 'bg-amber-100 text-amber-800'
                           : t.status === 'RESOLVED'
-                          ? 'bg-status-success/10 text-status-success border border-status-success/25'
-                          : 'bg-surface-nested text-text-secondary border border-border'
+                          ? 'bg-emerald-100 text-emerald-800'
+                          : 'bg-slate-200 text-slate-700'
                       }`}
                     >
                       {t.status.replace(/_/g, ' ')}
@@ -100,36 +101,36 @@ export const TicketList: React.FC<Props> = ({
                     {t.assigned_agent ? (
                       <div className="flex items-center gap-2">
                         <div
-                          className={`w-6 h-6 rounded-tile flex items-center justify-center text-xs font-semibold ${
-                            isAssignedToMe ? 'bg-brand text-white' : 'bg-surface-nested text-text-primary border border-border'
+                          className={`w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold ${
+                            isAssignedToMe ? 'bg-blue-600 text-white' : 'bg-slate-200 text-slate-700'
                           }`}
                         >
                           {t.assigned_agent.name[0]}
                         </div>
-                        <span className="text-xs text-text-primary font-medium">
+                        <span className="text-xs text-slate-700 font-medium">
                           {t.assigned_agent.name} {isAssignedToMe && '(You)'}
                         </span>
                       </div>
                     ) : (
-                      <span className="text-xs text-text-muted italic">Unassigned</span>
+                      <span className="text-xs text-slate-400 italic">Unassigned</span>
                     )}
                   </td>
                   <td className="py-3.5 px-4 text-right whitespace-nowrap" onClick={(e) => e.stopPropagation()}>
                     {!t.assigned_agent_id ? (
                       <button
                         onClick={() => onQuickClaim(t)}
-                        className="px-3 py-1 text-xs font-medium rounded-control bg-brand-active text-brand border border-brand/20 hover:bg-brand hover:text-white transition"
+                        className="px-2.5 py-1 text-xs font-semibold rounded-lg bg-blue-50 text-blue-700 border border-blue-200 hover:bg-blue-100 transition shadow-sm"
                       >
                         Take Ticket
                       </button>
                     ) : isAssignedToMe ? (
-                      <span className="inline-flex items-center gap-1 text-xs text-status-success font-semibold">
+                      <span className="inline-flex items-center gap-1 text-xs text-emerald-600 font-semibold">
                         <Check className="w-3.5 h-3.5" /> Yours
                       </span>
                     ) : (
                       <button
                         onClick={() => onSelectTicket(t.id)}
-                        className="text-text-muted hover:text-text-primary p-1 rounded-control"
+                        className="text-slate-400 hover:text-slate-600 p-1"
                       >
                         <ChevronRight className="w-4 h-4" />
                       </button>
@@ -144,3 +145,4 @@ export const TicketList: React.FC<Props> = ({
     </div>
   );
 };
+
