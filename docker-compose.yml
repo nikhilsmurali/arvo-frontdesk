@@ -1,0 +1,52 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: frontdesk_postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: frontdesk_user
+      POSTGRES_PASSWORD: frontdesk_password
+      POSTGRES_DB: frontdesk
+    ports:
+      - "5435:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U frontdesk_user -d frontdesk"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: frontdesk_backend
+    restart: unless-stopped
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      - DATABASE_URL=postgresql+psycopg2://frontdesk_user:frontdesk_password@postgres:5432/frontdesk
+      - WORK_START_HOUR=9
+      - WORK_START_MINUTE=30
+      - WORK_END_HOUR=18
+      - WORK_END_MINUTE=30
+    ports:
+      - "8000:8000"
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: frontdesk_frontend
+    restart: unless-stopped
+    depends_on:
+      - backend
+    ports:
+      - "3000:80"
+
+volumes:
+  postgres_data:
