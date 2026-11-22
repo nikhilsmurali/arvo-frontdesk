@@ -127,31 +127,31 @@ export function App() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-slate-100">
+    <div className="min-h-screen flex flex-col bg-surface-page">
       {/* Top Navbar */}
-      <header className="bg-slate-900 text-white border-b border-slate-800 sticky top-0 z-40">
+      <header className="bg-text-shell text-white border-b border-[#243d39] sticky top-0 z-40">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
           <div className="flex items-center gap-6">
             <div className="flex items-center gap-3">
-              <div className="w-9 h-9 rounded-xl bg-blue-600 flex items-center justify-center font-black text-white text-lg shadow-md">
+              <div className="w-8 h-8 rounded-tile bg-brand flex items-center justify-center font-bold text-white text-base shadow-sm">
                 F
               </div>
               <div>
-                <span className="font-extrabold text-base tracking-tight text-white">Frontdesk</span>
-                <span className="text-[10px] text-blue-400 font-semibold block uppercase tracking-wider">
+                <span className="font-bold text-base tracking-tight text-white">Frontdesk</span>
+                <span className="text-[10px] text-brand-active font-semibold block uppercase tracking-wider">
                   Arvo Systems Support
                 </span>
               </div>
             </div>
 
             {/* View Switcher Tabs */}
-            <div className="hidden md:flex bg-slate-800 p-1 rounded-xl border border-slate-700/60 text-xs">
+            <div className="hidden md:flex bg-[#122320] p-1 rounded-control border border-[#243d39] text-xs">
               <button
                 onClick={() => setActiveView('workbench')}
-                className={`px-3.5 py-1.5 rounded-lg font-bold flex items-center gap-1.5 transition ${
+                className={`px-3.5 py-1.5 rounded-control font-medium flex items-center gap-1.5 transition ${
                   activeView === 'workbench'
-                    ? 'bg-blue-600 text-white shadow-sm'
-                    : 'text-slate-400 hover:text-white'
+                    ? 'bg-brand text-white shadow-sm'
+                    : 'text-text-muted hover:text-white'
                 }`}
               >
                 <Layers className="w-3.5 h-3.5" />
@@ -159,10 +159,10 @@ export function App() {
               </button>
               <button
                 onClick={() => setActiveView('customer')}
-                className={`px-3.5 py-1.5 rounded-lg font-bold flex items-center gap-1.5 transition ${
+                className={`px-3.5 py-1.5 rounded-control font-medium flex items-center gap-1.5 transition ${
                   activeView === 'customer'
-                    ? 'bg-emerald-600 text-white shadow-sm'
-                    : 'text-slate-400 hover:text-white'
+                    ? 'bg-brand text-white shadow-sm'
+                    : 'text-text-muted hover:text-white'
                 }`}
               >
                 <Eye className="w-3.5 h-3.5" />
@@ -175,8 +175,8 @@ export function App() {
           <div className="flex items-center gap-3">
             {/* Agent Switcher */}
             {agents.length > 0 && currentAgent && (
-              <div className="flex items-center gap-2 bg-slate-800 px-3 py-1.5 rounded-xl border border-slate-700">
-                <div className="w-6 h-6 rounded-full bg-blue-500 text-white flex items-center justify-center text-xs font-bold">
+              <div className="flex items-center gap-2 bg-[#122320] px-3 py-1.5 rounded-control border border-[#243d39]">
+                <div className="w-6 h-6 rounded-tile bg-brand text-white flex items-center justify-center text-xs font-semibold">
                   {currentAgent.name[0]}
                 </div>
                 <div className="text-left">
@@ -186,10 +186,10 @@ export function App() {
                       const found = agents.find((a) => a.id === Number(e.target.value));
                       if (found) setCurrentAgent(found);
                     }}
-                    className="bg-transparent text-white font-semibold text-xs focus:outline-none cursor-pointer"
+                    className="bg-transparent text-white font-medium text-xs focus:outline-none cursor-pointer"
                   >
                     {agents.map((a) => (
-                      <option key={a.id} value={a.id} className="bg-slate-800 text-white">
+                      <option key={a.id} value={a.id} className="bg-text-shell text-white">
                         {a.name} ({a.role})
                       </option>
                     ))}
@@ -202,7 +202,7 @@ export function App() {
             <button
               onClick={handleRunSweep}
               title="Run background SLA engine sweep & auto-close inactive tickets"
-              className="px-3 py-1.5 bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white text-xs font-semibold rounded-xl border border-slate-700 flex items-center gap-1.5 transition"
+              className="px-3 py-1.5 bg-[#122320] hover:bg-[#1a332f] text-text-muted hover:text-white text-xs font-medium rounded-control border border-[#243d39] flex items-center gap-1.5 transition"
             >
               <RefreshCw className="w-3.5 h-3.5" />
               SLA Sweep
@@ -211,7 +211,7 @@ export function App() {
             {/* Create Ticket */}
             <button
               onClick={() => setIsModalOpen(true)}
-              className="px-3.5 py-1.5 bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold rounded-xl shadow-sm flex items-center gap-1.5 transition"
+              className="px-4 py-1.5 bg-brand hover:bg-brand-dark text-white text-xs font-medium rounded-control shadow-sm flex items-center gap-1.5 transition"
             >
               <PlusCircle className="w-4 h-4" />
               New Ticket
@@ -222,7 +222,7 @@ export function App() {
 
       {/* Toast Notification */}
       {notification && (
-        <div className="bg-blue-600 text-white text-xs font-semibold px-4 py-2 text-center shadow-md animate-fade-in">
+        <div className="bg-brand text-white text-xs font-medium px-4 py-2 text-center shadow-sm">
           {notification}
         </div>
       )}
@@ -236,64 +236,64 @@ export function App() {
             {/* Metrics Ribbon */}
             {stats && (
               <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
-                <div className="bg-white p-3.5 rounded-xl border border-slate-200 shadow-xs">
-                  <span className="text-[11px] font-bold uppercase tracking-wider text-slate-400">Total</span>
-                  <div className="text-xl font-extrabold text-slate-900 mt-0.5">{stats.total_tickets}</div>
+                <div className="bg-surface p-4 rounded-card border border-border-light shadow-card">
+                  <span className="text-[11px] font-semibold uppercase tracking-wider text-text-muted">Total</span>
+                  <div className="text-xl font-bold text-text-primary mt-1">{stats.total_tickets}</div>
                 </div>
 
-                <div className="bg-white p-3.5 rounded-xl border border-slate-200 shadow-xs">
-                  <span className="text-[11px] font-bold uppercase tracking-wider text-slate-500">Open Tickets</span>
-                  <div className="text-xl font-extrabold text-blue-600 mt-0.5">{stats.open_tickets}</div>
+                <div className="bg-surface p-4 rounded-card border border-border-light shadow-card">
+                  <span className="text-[11px] font-semibold uppercase tracking-wider text-text-secondary">Open Tickets</span>
+                  <div className="text-xl font-bold text-brand mt-1">{stats.open_tickets}</div>
                 </div>
 
-                <div className="bg-white p-3.5 rounded-xl border border-rose-200 bg-rose-50/40 shadow-xs">
-                  <span className="text-[11px] font-bold uppercase tracking-wider text-rose-700 flex items-center gap-1">
+                <div className="bg-surface p-4 rounded-card border border-status-error/25 bg-status-error/5 shadow-card">
+                  <span className="text-[11px] font-semibold uppercase tracking-wider text-status-error flex items-center gap-1">
                     <AlertTriangle className="w-3 h-3" /> SLA Breached
                   </span>
-                  <div className="text-xl font-extrabold text-rose-700 mt-0.5">{stats.late_tickets}</div>
+                  <div className="text-xl font-bold text-status-error mt-1">{stats.late_tickets}</div>
                 </div>
 
-                <div className="bg-white p-3.5 rounded-xl border border-amber-200 bg-amber-50/40 shadow-xs">
-                  <span className="text-[11px] font-bold uppercase tracking-wider text-amber-800 flex items-center gap-1">
+                <div className="bg-surface p-4 rounded-card border border-status-warning/25 bg-status-warning/5 shadow-card">
+                  <span className="text-[11px] font-semibold uppercase tracking-wider text-amber-800 flex items-center gap-1">
                     <PauseCircle className="w-3 h-3" /> Waiting Customer
                   </span>
-                  <div className="text-xl font-extrabold text-amber-800 mt-0.5">
+                  <div className="text-xl font-bold text-amber-800 mt-1">
                     {stats.waiting_on_customer_tickets}
                   </div>
                 </div>
 
-                <div className="bg-white p-3.5 rounded-xl border border-red-200 bg-red-50/40 shadow-xs">
-                  <span className="text-[11px] font-bold uppercase tracking-wider text-red-700">Urgent Problems</span>
-                  <div className="text-xl font-extrabold text-red-700 mt-0.5">{stats.urgent_tickets}</div>
+                <div className="bg-surface p-4 rounded-card border border-status-urgent/25 bg-status-urgent/5 shadow-card">
+                  <span className="text-[11px] font-semibold uppercase tracking-wider text-[#EA580C]">Urgent Problems</span>
+                  <div className="text-xl font-bold text-[#EA580C] mt-1">{stats.urgent_tickets}</div>
                 </div>
 
-                <div className="bg-white p-3.5 rounded-xl border border-emerald-200 bg-emerald-50/40 shadow-xs">
-                  <span className="text-[11px] font-bold uppercase tracking-wider text-emerald-700">Resolved</span>
-                  <div className="text-xl font-extrabold text-emerald-700 mt-0.5">{stats.resolved_tickets}</div>
+                <div className="bg-surface p-4 rounded-card border border-status-success/25 bg-status-success/5 shadow-card">
+                  <span className="text-[11px] font-semibold uppercase tracking-wider text-status-success">Resolved</span>
+                  <div className="text-xl font-bold text-status-success mt-1">{stats.resolved_tickets}</div>
                 </div>
               </div>
             )}
 
             {/* Filters Bar */}
-            <div className="bg-white rounded-xl border border-slate-200 p-3 shadow-xs flex flex-wrap items-center justify-between gap-3">
+            <div className="bg-surface rounded-card border border-border-light p-3.5 shadow-card flex flex-wrap items-center justify-between gap-3">
               {/* Filter Tabs */}
               <div className="flex items-center gap-1.5 flex-wrap">
                 <button
                   onClick={() => setActiveTab('all')}
-                  className={`px-3 py-1.5 rounded-lg text-xs font-bold transition ${
+                  className={`px-3 py-1.5 rounded-control text-xs font-medium transition ${
                     activeTab === 'all'
-                      ? 'bg-blue-600 text-white'
-                      : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
+                      ? 'bg-brand text-white shadow-sm'
+                      : 'bg-surface-nested text-text-secondary hover:bg-surface-nestedHover'
                   }`}
                 >
                   All Tickets
                 </button>
                 <button
                   onClick={() => setActiveTab('late')}
-                  className={`px-3 py-1.5 rounded-lg text-xs font-bold transition flex items-center gap-1.5 ${
+                  className={`px-3 py-1.5 rounded-control text-xs font-semibold transition flex items-center gap-1.5 ${
                     activeTab === 'late'
-                      ? 'bg-rose-600 text-white'
-                      : 'bg-rose-50 text-rose-700 hover:bg-rose-100 border border-rose-200'
+                      ? 'bg-status-error text-white'
+                      : 'bg-status-error/10 text-status-error hover:bg-status-error/15 border border-status-error/20'
                   }`}
                 >
                   <AlertTriangle className="w-3.5 h-3.5" />
@@ -301,10 +301,10 @@ export function App() {
                 </button>
                 <button
                   onClick={() => setActiveTab('waiting')}
-                  className={`px-3 py-1.5 rounded-lg text-xs font-bold transition flex items-center gap-1.5 ${
+                  className={`px-3 py-1.5 rounded-control text-xs font-semibold transition flex items-center gap-1.5 ${
                     activeTab === 'waiting'
                       ? 'bg-amber-600 text-white'
-                      : 'bg-amber-50 text-amber-800 hover:bg-amber-100 border border-amber-200'
+                      : 'bg-status-warning/10 text-amber-800 hover:bg-status-warning/15 border border-status-warning/20'
                   }`}
                 >
                   <PauseCircle className="w-3.5 h-3.5" />
@@ -312,20 +312,20 @@ export function App() {
                 </button>
                 <button
                   onClick={() => setActiveTab('my')}
-                  className={`px-3 py-1.5 rounded-lg text-xs font-bold transition ${
+                  className={`px-3 py-1.5 rounded-control text-xs font-medium transition ${
                     activeTab === 'my'
-                      ? 'bg-blue-600 text-white'
-                      : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
+                      ? 'bg-brand text-white shadow-sm'
+                      : 'bg-surface-nested text-text-secondary hover:bg-surface-nestedHover'
                   }`}
                 >
                   Assigned to Me
                 </button>
                 <button
                   onClick={() => setActiveTab('unassigned')}
-                  className={`px-3 py-1.5 rounded-lg text-xs font-bold transition ${
+                  className={`px-3 py-1.5 rounded-control text-xs font-medium transition ${
                     activeTab === 'unassigned'
-                      ? 'bg-blue-600 text-white'
-                      : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
+                      ? 'bg-brand text-white shadow-sm'
+                      : 'bg-surface-nested text-text-secondary hover:bg-surface-nestedHover'
                   }`}
                 >
                   Unassigned
@@ -337,7 +337,7 @@ export function App() {
                 <select
                   value={priorityFilter}
                   onChange={(e) => setPriorityFilter(e.target.value)}
-                  className="px-2.5 py-1.5 bg-slate-50 border border-slate-200 rounded-lg text-xs font-semibold text-slate-700 focus:outline-none"
+                  className="px-3 py-1.5 bg-surface border border-border rounded-control text-xs font-medium text-text-primary focus:border-brand focus:ring-1 focus:ring-brand focus:outline-none"
                 >
                   <option value="ALL">All Priorities</option>
                   <option value="URGENT">Urgent</option>
@@ -346,13 +346,13 @@ export function App() {
                 </select>
 
                 <div className="relative">
-                  <Search className="w-3.5 h-3.5 text-slate-400 absolute left-2.5 top-2.5" />
+                  <Search className="w-3.5 h-3.5 text-text-muted absolute left-3 top-2.5" />
                   <input
                     type="text"
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
                     placeholder="Search tickets..."
-                    className="pl-8 pr-3 py-1.5 bg-slate-50 border border-slate-200 rounded-lg text-xs text-slate-700 placeholder-slate-400 focus:outline-none focus:ring-1 focus:ring-blue-500 w-44"
+                    className="pl-8 pr-3 py-1.5 bg-surface border border-border-search rounded-control text-xs text-text-primary placeholder-text-muted focus:border-brand focus:ring-1 focus:ring-brand focus:outline-none w-44"
                   />
                 </div>
               </div>

@@ -233,3 +233,4 @@ def recalculate_sla_on_priority_change(
         "resolution_due_at": new_resolution_due,
         "elapsed_active_minutes": elapsed_active_minutes
     }
+

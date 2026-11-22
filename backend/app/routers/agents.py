@@ -18,3 +18,4 @@ def get_agent(agent_id: int, db: Session = Depends(get_db)):
     if not agent:
         raise HTTPException(status_code=404, detail="Agent not found")
     return agent
+

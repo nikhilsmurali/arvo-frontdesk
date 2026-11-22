@@ -40,3 +40,4 @@ def health_check():
         "service": "Arvo Frontdesk Backend",
         "database": settings.DATABASE_URL.split("://")[0]
     }
+

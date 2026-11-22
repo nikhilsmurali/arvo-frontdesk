@@ -173,3 +173,4 @@ def customer_reopen(ticket_number: str, payload: TicketCustomerReopenRequest, db
     db.commit()
     db.refresh(ticket)
     return get_customer_ticket(ticket_number, db)
+

@@ -23,3 +23,4 @@ def get_ticket_audit_trail(ticket_id: int, db: Session = Depends(get_db)):
     ).order_by(TicketEvent.created_at.asc()).all()
 
     return events
+

@@ -96,3 +96,4 @@ def test_priority_change_timer_logic():
     )
     # Should flag due immediately (breached)
     assert recalc_breached["first_response_due_at"] == at_1pm
+

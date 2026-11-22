@@ -122,3 +122,4 @@ class TicketEvent(Base):
     created_at = Column(DateTime, default=datetime.utcnow, nullable=False, index=True)
 
     ticket = relationship("Ticket", back_populates="audit_events")
+

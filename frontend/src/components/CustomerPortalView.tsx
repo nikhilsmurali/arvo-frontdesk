@@ -70,37 +70,37 @@ export const CustomerPortalView: React.FC<Props> = ({ sampleTicketNumber = 'INC-
   return (
     <div className="max-w-4xl mx-auto space-y-6">
       {/* INC-0304 Notice Card */}
-      <div className="bg-emerald-50 border border-emerald-200 rounded-xl p-4 flex items-start gap-3">
-        <ShieldCheck className="w-5 h-5 text-emerald-600 flex-shrink-0 mt-0.5" />
+      <div className="bg-brand-active border border-brand/20 rounded-card p-4.5 flex items-start gap-3 shadow-card">
+        <ShieldCheck className="w-5 h-5 text-brand flex-shrink-0 mt-0.5" />
         <div>
-          <h4 className="text-sm font-bold text-emerald-950">
+          <h4 className="text-sm font-semibold text-text-shell">
             Customer Portal View — INC-0304 Security Guard Verified
           </h4>
-          <p className="text-xs text-emerald-800 mt-0.5">
+          <p className="text-xs text-text-secondary mt-0.5">
             This customer view strictly isolates private data. Internal team notes and private agent discussions are filtered out at both the database and response serializer levels.
           </p>
         </div>
       </div>
 
       {/* Ticket Lookup Bar */}
-      <div className="bg-white rounded-xl border border-slate-200 p-4 shadow-sm flex items-center gap-3">
-        <span className="text-xs font-semibold text-slate-500 uppercase">Look up Ticket:</span>
+      <div className="bg-surface rounded-card border border-border-light p-4 shadow-card flex items-center gap-3">
+        <span className="text-xs font-semibold text-text-secondary uppercase tracking-wider">Look up Ticket:</span>
         <input
           type="text"
           value={ticketNumber}
           onChange={(e) => setTicketNumber(e.target.value)}
           placeholder="e.g. INC-0330, INC-0331"
-          className="px-3 py-1.5 border border-slate-200 rounded-lg text-sm font-mono w-44 focus:ring-2 focus:ring-blue-500 focus:outline-none"
+          className="px-3.5 py-2 border border-border rounded-control text-sm font-mono w-44 focus:border-brand focus:ring-1 focus:ring-brand focus:outline-none transition"
         />
         <button
           onClick={() => loadTicket(ticketNumber)}
           disabled={isLoading}
-          className="px-4 py-1.5 bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold rounded-lg shadow-sm transition disabled:opacity-50"
+          className="px-4 py-2 bg-brand hover:bg-brand-dark text-white text-xs font-medium rounded-control shadow-sm transition disabled:opacity-50"
         >
           {isLoading ? 'Loading...' : 'Search'}
         </button>
 
-        <div className="ml-auto text-xs text-slate-500 flex items-center gap-2">
+        <div className="ml-auto text-xs text-text-secondary flex items-center gap-2">
           <span>Quick samples:</span>
           {['INC-0330', 'INC-0331', 'INC-0329'].map((n) => (
             <button
@@ -109,7 +109,7 @@ export const CustomerPortalView: React.FC<Props> = ({ sampleTicketNumber = 'INC-
                 setTicketNumber(n);
                 loadTicket(n);
               }}
-              className="text-blue-600 font-mono hover:underline"
+              className="text-brand font-mono hover:underline font-semibold"
             >
               {n}
             </button>
@@ -118,49 +118,49 @@ export const CustomerPortalView: React.FC<Props> = ({ sampleTicketNumber = 'INC-
       </div>
 
       {error && (
-        <div className="p-4 bg-red-50 text-red-700 text-sm rounded-xl border border-red-200 flex items-center gap-2">
-          <AlertCircle className="w-5 h-5 flex-shrink-0" />
+        <div className="p-4 bg-status-error/10 text-status-error text-xs font-medium rounded-card border border-status-error/20 flex items-center gap-2">
+          <AlertCircle className="w-4 h-4 flex-shrink-0" />
           <span>{error}</span>
         </div>
       )}
 
       {ticket && (
-        <div className="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
+        <div className="bg-surface rounded-card border border-border-light shadow-card overflow-hidden">
           {/* Header */}
-          <div className="p-6 border-b border-slate-100 bg-slate-50 flex items-center justify-between">
+          <div className="p-6 border-b border-border-light bg-surface-muted flex items-center justify-between">
             <div>
-              <div className="flex items-center gap-2 mb-1">
-                <span className="font-mono text-xs font-bold bg-slate-200 px-2 py-0.5 rounded">
+              <div className="flex items-center gap-2 mb-1.5">
+                <span className="font-mono text-xs font-semibold bg-surface-nested text-text-primary px-2.5 py-0.5 rounded-control border border-border">
                   {ticket.ticket_number}
                 </span>
-                <span className="px-2 py-0.5 rounded text-xs font-semibold bg-blue-100 text-blue-800">
+                <span className="px-2.5 py-0.5 rounded-full text-[10px] font-semibold uppercase tracking-wider bg-brand/10 text-brand border border-brand/25">
                   {ticket.status.replace(/_/g, ' ')}
                 </span>
               </div>
-              <h2 className="text-lg font-bold text-slate-900">{ticket.title}</h2>
-              <p className="text-xs text-slate-500 mt-0.5">Submitted by: {ticket.customer_name}</p>
+              <h2 className="text-base font-semibold text-text-primary">{ticket.title}</h2>
+              <p className="text-xs text-text-secondary mt-0.5">Submitted by: {ticket.customer_name}</p>
             </div>
 
             {ticket.status === 'RESOLVED' && (
               <button
                 onClick={() => setReopenModal(true)}
-                className="px-4 py-2 bg-amber-600 hover:bg-amber-700 text-white font-semibold text-xs rounded-lg shadow-sm flex items-center gap-1.5 transition"
+                className="px-4 py-2 bg-amber-600 hover:bg-amber-700 text-white font-medium text-xs rounded-control shadow-sm flex items-center gap-1.5 transition"
               >
-                <RotateCcw className="w-4 h-4" />
+                <RotateCcw className="w-3.5 h-3.5" />
                 Reopen Ticket (1-Week Window)
               </button>
             )}
           </div>
 
           {reopenStatus && (
-            <div className="bg-emerald-50 px-6 py-2 text-xs text-emerald-800 font-semibold border-b border-emerald-200">
+            <div className="bg-status-success/10 px-6 py-2.5 text-xs text-status-success font-semibold border-b border-status-success/20">
               {reopenStatus}
             </div>
           )}
 
           {/* Conversation (Customer visible only) */}
           <div className="p-6 space-y-4">
-            <h3 className="text-xs font-bold uppercase tracking-wider text-slate-400">
+            <h3 className="text-[11px] font-semibold uppercase tracking-wider text-text-muted">
               Ticket Conversation ({ticket.messages.length} visible public messages)
             </h3>
 
@@ -170,15 +170,15 @@ export const CustomerPortalView: React.FC<Props> = ({ sampleTicketNumber = 'INC-
                 return (
                   <div
                     key={m.id}
-                    className={`p-4 rounded-xl border max-w-xl ${
+                    className={`p-4 rounded-tile border max-w-xl transition ${
                       isCustomer
-                        ? 'bg-blue-50/70 border-blue-200 ml-auto text-slate-900'
-                        : 'bg-white border-slate-200 mr-auto text-slate-900 shadow-xs'
+                        ? 'bg-brand-active border-brand/20 ml-auto text-text-primary'
+                        : 'bg-surface border-border-light mr-auto text-text-primary shadow-card'
                     }`}
                   >
                     <div className="flex items-center justify-between text-xs mb-1">
-                      <span className="font-bold text-slate-800">{m.sender_name}</span>
-                      <span className="text-slate-400 font-mono text-[11px]">
+                      <span className="font-semibold text-text-primary">{m.sender_name}</span>
+                      <span className="text-text-muted font-mono text-[11px]">
                         {new Date(m.created_at).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
                       </span>
                     </div>
@@ -190,8 +190,8 @@ export const CustomerPortalView: React.FC<Props> = ({ sampleTicketNumber = 'INC-
 
             {/* Reply Input for customer */}
             {ticket.status !== 'CLOSED' && (
-              <form onSubmit={handleReplySubmit} className="mt-6 pt-4 border-t border-slate-100">
-                <label className="block text-xs font-semibold text-slate-600 mb-2">
+              <form onSubmit={handleReplySubmit} className="mt-6 pt-5 border-t border-border-light">
+                <label className="block text-xs font-semibold uppercase tracking-wider text-text-secondary mb-2">
                   Send a response to Arvo Support:
                 </label>
                 <textarea
@@ -200,16 +200,16 @@ export const CustomerPortalView: React.FC<Props> = ({ sampleTicketNumber = 'INC-
                   value={replyBody}
                   onChange={(e) => setReplyBody(e.target.value)}
                   placeholder="Provide clarification or additional details..."
-                  className="w-full p-3 border border-slate-200 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 focus:outline-none"
+                  className="w-full p-3 bg-surface border border-border rounded-control text-sm text-text-primary focus:border-brand focus:ring-1 focus:ring-brand focus:outline-none transition"
                 />
-                <div className="flex items-center justify-between mt-2">
-                  <span className="text-xs text-slate-500">
+                <div className="flex items-center justify-between mt-2.5">
+                  <span className="text-xs text-text-muted">
                     *Replying automatically unpauses the support team's SLA timer.
                   </span>
                   <button
                     type="submit"
                     disabled={isSending || !replyBody.trim()}
-                    className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs rounded-lg shadow-sm flex items-center gap-1.5 transition disabled:opacity-50"
+                    className="px-4 py-2 bg-brand hover:bg-brand-dark text-white font-medium text-xs rounded-control shadow-sm flex items-center gap-1.5 transition disabled:opacity-50"
                   >
                     <Send className="w-3.5 h-3.5" />
                     {isSending ? 'Sending...' : 'Send Reply'}
@@ -223,49 +223,49 @@ export const CustomerPortalView: React.FC<Props> = ({ sampleTicketNumber = 'INC-
 
       {/* Customer Reopen Modal */}
       {reopenModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/40 p-4">
-          <div className="bg-white rounded-xl shadow-xl max-w-md w-full p-6 border border-slate-200">
-            <h3 className="font-bold text-slate-900 text-base mb-1">Reopen Support Ticket</h3>
-            <p className="text-xs text-slate-500 mb-4">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-text-primary/40 backdrop-blur-xs p-4">
+          <div className="bg-surface rounded-card shadow-modal max-w-md w-full p-6 border border-border-light">
+            <h3 className="font-semibold text-text-primary text-base mb-1">Reopen Support Ticket</h3>
+            <p className="text-xs text-text-secondary mb-4">
               Tickets can be reopened within 1 week of resolution if the issue recurs.
             </p>
 
             <form onSubmit={handleReopenSubmit} className="space-y-4">
               <div>
-                <label className="block text-xs font-semibold text-slate-600 mb-1">Your Email</label>
+                <label className="block text-xs font-semibold uppercase tracking-wider text-text-secondary mb-1">Your Email</label>
                 <input
                   type="email"
                   required
                   value={reopenEmail}
                   onChange={(e) => setReopenEmail(e.target.value)}
                   placeholder="email used when submitting ticket"
-                  className="w-full p-2 border border-slate-200 rounded-lg text-sm"
+                  className="w-full p-2.5 bg-surface border border-border rounded-control text-sm text-text-primary focus:border-brand focus:ring-1 focus:ring-brand focus:outline-none transition"
                 />
               </div>
 
               <div>
-                <label className="block text-xs font-semibold text-slate-600 mb-1">Why are you reopening?</label>
+                <label className="block text-xs font-semibold uppercase tracking-wider text-text-secondary mb-1">Why are you reopening?</label>
                 <textarea
                   required
                   rows={3}
                   value={reopenReason}
                   onChange={(e) => setReopenReason(e.target.value)}
                   placeholder="Describe why the problem is not fixed..."
-                  className="w-full p-2 border border-slate-200 rounded-lg text-sm"
+                  className="w-full p-2.5 bg-surface border border-border rounded-control text-sm text-text-primary focus:border-brand focus:ring-1 focus:ring-brand focus:outline-none transition"
                 />
               </div>
 
-              <div className="flex justify-end gap-2 pt-2">
+              <div className="flex justify-end gap-2.5 pt-2">
                 <button
                   type="button"
                   onClick={() => setReopenModal(false)}
-                  className="px-3 py-1.5 text-xs text-slate-600 hover:text-slate-800"
+                  className="px-4 py-2 text-xs font-medium text-text-secondary hover:text-text-primary transition"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
-                  className="px-4 py-1.5 text-xs font-bold text-white bg-amber-600 hover:bg-amber-700 rounded-lg shadow-sm"
+                  className="px-4 py-2 text-xs font-medium text-white bg-amber-600 hover:bg-amber-700 rounded-control shadow-sm transition"
                 >
                   Confirm Reopen
                 </button>

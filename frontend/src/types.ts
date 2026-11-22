@@ -83,3 +83,4 @@ export interface TicketStats {
   urgent_tickets: number;
   resolved_tickets: number;
 }
+

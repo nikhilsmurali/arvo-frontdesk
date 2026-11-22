@@ -14,34 +14,34 @@ export const SLABadge: React.FC<Props> = ({ ticket }) => {
   if (isResolved) {
     if (ticket.resolution_breached) {
       return (
-        <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold bg-red-50 text-red-700 border border-red-200">
+        <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-semibold uppercase tracking-wider bg-status-error/10 text-status-error border border-status-error/25">
           <AlertTriangle className="w-3.5 h-3.5" />
-          Resolved (SLA Breached)
+          Resolved (Late)
         </span>
       );
     }
     return (
-      <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200">
+      <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-semibold uppercase tracking-wider bg-status-success/10 text-status-success border border-status-success/25">
         <CheckCircle className="w-3.5 h-3.5" />
-        Resolved on time
+        Resolved On Time
       </span>
     );
   }
 
   if (isWaiting) {
     return (
-      <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold bg-amber-50 text-amber-700 border border-amber-200">
+      <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-semibold uppercase tracking-wider bg-status-warning/10 text-amber-700 border border-status-warning/30">
         <PauseCircle className="w-3.5 h-3.5" />
-        SLA Paused (Customer Waiting)
+        SLA Paused
       </span>
     );
   }
 
   if (isBreached) {
     return (
-      <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold bg-rose-100 text-rose-800 border border-rose-300 animate-pulse">
+      <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-semibold uppercase tracking-wider bg-status-error/10 text-status-error border border-status-error/30 animate-pulse">
         <ShieldAlert className="w-3.5 h-3.5" />
-        SLA Breached (LATE)
+        SLA Breached
       </span>
     );
   }
@@ -51,7 +51,7 @@ export const SLABadge: React.FC<Props> = ({ ticket }) => {
   const label = ticket.first_response_at ? 'Fix Due' : 'Reply Due';
 
   return (
-    <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium bg-blue-50 text-blue-700 border border-blue-200">
+    <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-semibold uppercase tracking-wider bg-brand/10 text-brand border border-brand/25">
       <Clock className="w-3.5 h-3.5" />
       {label}: {dueDate.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', weekday: 'short' })}
     </span>
@@ -62,20 +62,20 @@ export const PriorityBadge: React.FC<{ priority: string }> = ({ priority }) => {
   const p = priority.toUpperCase();
   if (p === 'URGENT') {
     return (
-      <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-bold bg-red-600 text-white tracking-wide uppercase">
+      <span className="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-bold tracking-wider uppercase bg-status-urgent/15 text-[#EA580C] border border-status-urgent/30">
         Urgent
       </span>
     );
   }
   if (p === 'MEDIUM') {
     return (
-      <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-semibold bg-amber-100 text-amber-800 border border-amber-200 uppercase">
+      <span className="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-semibold tracking-wider uppercase bg-status-warning/15 text-amber-800 border border-status-warning/30">
         Medium
       </span>
     );
   }
   return (
-    <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-slate-100 text-slate-700 border border-slate-200 uppercase">
+    <span className="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-medium tracking-wider uppercase bg-surface-nested text-text-secondary border border-border">
       Low
     </span>
   );

@@ -55,3 +55,4 @@ def test_concurrency_prevention_inc_0291():
     })
     assert claim_2_new_version.status_code == 409
     assert "already been claimed by" in claim_2_new_version.json()["detail"]
+

@@ -154,3 +154,4 @@ venv\Scripts\pytest tests -v
 - `tests/test_audit_log.py`: Proves every action records immutable audit events (INC-0318).
 - `tests/test_sla_engine.py`: Proves working hours, holiday exclusions, Friday 6 PM ticket not late on Sunday morning, and priority change calculations.
 - `tests/test_reopen_and_autoclose.py`: Proves 1-week reopen enforcement and 45-hour auto-close rule.
+

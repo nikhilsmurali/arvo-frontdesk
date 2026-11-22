@@ -69,3 +69,4 @@ def test_internal_notes_never_leaked_to_customer_inc_0304():
     # Schema check: customer message items do not even contain an 'is_internal' flag
     for msg in customer_view["messages"]:
         assert "is_internal" not in msg
+
